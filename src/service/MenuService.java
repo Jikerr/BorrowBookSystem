@@ -93,7 +93,9 @@ public class MenuService {
     public List<Menu> formatMenuList(List<String> results) {
         List<Menu> menusList = new ArrayList<>();
 
-        for (String menuCell : results) {
+        for(int i = 1;i<results.size();i++){
+        //for (String menuCell : results) {
+            String menuCell = results.get(i);
             String[] cellDetail = menuCell.trim().split("#");
             String showNumber = cellDetail[0];
             String menuName = cellDetail[1];
@@ -146,9 +148,16 @@ public class MenuService {
             back();
         } else if (MenuAction._FUNCTION.getCode().equals(menu.getAction())) {
             clear();
-            System.out.println("功能建设中(已经返回上一级)...");
-            printMenus();
-        } else {
+            FunctionController functionController = new FunctionController();
+            Menu selectFunctionMenu = getMenuByShowNum(Integer.valueOf(input));
+            functionController.handlerAction(selectFunctionMenu.getId());
+            //System.out.println("功能建设中(已经返回上一级)...");
+            //printMenus();
+        }else if (MenuAction._EXIT.getCode().equals(menu.getAction())) {
+            clear();
+            System.out.println("您已经成功退出系统...");
+            System.exit(0);
+        }else {
             enter(Integer.valueOf(input));
         }
     }

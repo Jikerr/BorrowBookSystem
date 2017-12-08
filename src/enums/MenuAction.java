@@ -8,7 +8,8 @@ package enums;
  */
 public enum MenuAction {
     _BACK("back", "返回"),
-    _FUNCTION("function", "功能");
+    _FUNCTION("function", "功能"),
+    _EXIT("exit", "退出系统");
 
     private String code;
     private String remark;

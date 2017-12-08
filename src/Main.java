@@ -1,4 +1,5 @@
 import bean.Menu;
+import service.BookService;
 import service.MenuService;
 import service.SceneService;
 
@@ -14,9 +15,12 @@ public class Main {
         sceneService.printWelcomePage();
         //初始化主菜单
         MenuService menuService = new MenuService();
+        BookService bookService = new BookService();
+
         try {
-            menuService.initMenus();
-            menuService.printMenus();
+            menuService.initMenus();//初始化菜单数据
+            bookService.initBooks();//初始化书籍数据
+            menuService.printMenus();//打印主菜单
 
             boolean isExit = false;
             while(!isExit){
