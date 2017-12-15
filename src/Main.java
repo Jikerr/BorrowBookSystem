@@ -21,17 +21,8 @@ public class Main {
             menuService.initMenus();//初始化菜单数据
             bookService.initBooks();//初始化书籍数据
             menuService.printMenus();//打印主菜单
+            menuService.handlerUserMenuInput();//接收用户在菜单上的输入
 
-            boolean isExit = false;
-            while(!isExit){
-                Scanner scanner = new Scanner(System.in);
-                String input = scanner.next();
-                menuService.handlerUserInput(input);
-
-                if(input.equals("0")){
-                    isExit = true;
-                }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }

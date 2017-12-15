@@ -7,6 +7,7 @@ import util.FileUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * @Author: zh
@@ -41,8 +42,8 @@ public class MenuService {
         }
     }
 
-    public void enter(int showNum) {
-        clear();
+
+    public void enterMenu(int showNum) {
         Menu targetMenu = getMenuByShowNum(showNum);
         menuIndex = targetMenu;//重新定位当前菜单位置
         System.out.println("====================================================");
@@ -53,7 +54,6 @@ public class MenuService {
     }
 
     public void back() {
-        clear();
         Menu menuOnce = this.menuIndex.getUpperLevel().get(0);
 
         Menu targetMenu = getMenuById(menuOnce.getParentId());
@@ -93,8 +93,8 @@ public class MenuService {
     public List<Menu> formatMenuList(List<String> results) {
         List<Menu> menusList = new ArrayList<>();
 
-        for(int i = 1;i<results.size();i++){
-        //for (String menuCell : results) {
+        for (int i = 1; i < results.size(); i++) {
+            //for (String menuCell : results) {
             String menuCell = results.get(i);
             String[] cellDetail = menuCell.trim().split("#");
             String showNumber = cellDetail[0];
@@ -142,26 +142,41 @@ public class MenuService {
         return targetMenu;
     }
 
-    public void handlerUserInput(String input) {
-        Menu menu = getMenuByShowNum(Integer.valueOf(input));
-        if (MenuAction._BACK.getCode().equals(menu.getAction())) {
-            back();
-        } else if (MenuAction._FUNCTION.getCode().equals(menu.getAction())) {
-            clear();
-            FunctionController functionController = new FunctionController();
-            Menu selectFunctionMenu = getMenuByShowNum(Integer.valueOf(input));
-            functionController.handlerAction(selectFunctionMenu.getId());
-            //System.out.println("功能建设中(已经返回上一级)...");
-            //printMenus();
-        }else if (MenuAction._EXIT.getCode().equals(menu.getAction())) {
-            clear();
-            System.out.println("您已经成功退出系统...");
-            System.exit(0);
-        }else {
-            enter(Integer.valueOf(input));
+    public void loopBack(){
+        back();
+        handlerUserMenuInput();
+    }
+
+    public void handlerUserMenuInput() {
+
+        while (!menuIndex.getLowerLevel().isEmpty()) {//没有下级目录 , 说明进入场景
+
+            Scanner scanner = new Scanner(System.in);//从系统输入流中构建Scanner类
+            String input = scanner.next();//接收用户String类型输入
+
+            Menu menu = getMenuByShowNum(Integer.valueOf(input));//根据输入的菜单序号获取到菜单实例
+            if (MenuAction._BACK.getCode().equals(menu.getAction())) {//匹配到这是一个返回上层的菜单
+                back();//调用返回上一级方法
+            } else if (MenuAction._FUNCTION.getCode().equals(menu.getAction())) {//[匹配到这是一个具体功能的菜单
+                menuIndex = menu;//重新定位菜单
+                FunctionController functionController = new FunctionController();
+                functionController.handlerAction(menu.getId());
+            } else if (MenuAction._EXIT.getCode().equals(menu.getAction())) {
+                systemExit();
+            } else if(null == menu.getAction()){//进入菜单
+                enterMenu(Integer.valueOf(input));
+            }
         }
     }
 
+    public void systemExit(){
+        System.out.println("您已经成功退出系统...");
+        System.exit(0);
+    }
+
+    /**
+     * 用于模拟清除屏幕内容
+     */
     public void clear() {
         try {
             Runtime.getRuntime().exec("cls");
