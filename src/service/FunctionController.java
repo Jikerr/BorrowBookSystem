@@ -25,15 +25,27 @@ public class FunctionController {
     }*/
 
     public void handlerAction(Integer fId){
+        MenuService menuService = new MenuService();
 
         switch (fId){
             case Constants.FUNCTION.SHOW_ALLBOOKLIST:{
                 BookService bookService = new BookService();
                 bookService.showBooksList();
-                bookService.booksListWorrowbook();
-                /*String operationInputString = getOperationInput();*/
-
-                /*offInput();*/
+                bookService.booksListWorrowbook(true);
+                break;
+            }
+            case Constants.FUNCTION.SHOW_BORROWLOGS:{
+                BorrowLogService borrowLogService = new BorrowLogService();
+                borrowLogService.printAll();
+                break;
+            }
+            default:{
+                System.out.println("==================================");
+                System.out.println("〉" + Constants.MSG.emptyUnit + "〈");
+                System.out.println("==================================");
+                menuService.loopBack();
+                //menuService.handlerUserMenuInput();
+                break;
             }
         }
     }
@@ -44,7 +56,7 @@ public class FunctionController {
     public String onInput(){
         /*waitingOperation = true;
         while(waitingOperation){*/
-            System.out.print("您的选择 (输入序号) : ");//注意此处不换行
+            System.out.print(Constants.MSG.tipFunctionInput);//注意此处不换行
             Scanner scanner = new Scanner(System.in);
             return scanner.next();
             /*operationInput = input;*/
