@@ -18,9 +18,10 @@ public class FileUtils {
         InputStream is = this.getClass().getResourceAsStream(fileName);//"/resource/menus.txt"
         BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
         String s = "";
-        while ((s = br.readLine()) != null)
-            lines.add(s);
-
+        while ((s = br.readLine())!=null)
+            if(!StringUtils.isEmpty(s)){
+                lines.add(s);
+            }
         return lines;
     }
 

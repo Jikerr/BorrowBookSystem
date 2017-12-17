@@ -60,7 +60,7 @@ public class MenuService {
 
         Menu targetMenu = getMenuById(menuOnce.getParentId());
         menuIndex = targetMenu;
-        if(!noPrintMenu){
+        if (!noPrintMenu) {
             System.out.println("====================================================");
             for (Menu menu : targetMenu.getLowerLevel()) {
                 System.out.println(menu.getShowNum() + "." + menu.getMenuName());
@@ -109,7 +109,6 @@ public class MenuService {
             if (cellDetail.length == 5) {
                 action = cellDetail[4];
             }
-
             Menu menu = new Menu();
             menu.setId(Integer.valueOf(id));
             menu.setParentId(Integer.valueOf(parentId));
@@ -160,7 +159,7 @@ public class MenuService {
             System.out.print(Constants.MSG.tipMenuInput);
             String input = scanner.next();//接收用户String类型输入
 
-            if(!StringUtils.isNumeric(input)){
+            if (!StringUtils.isNumeric(input)) {
                 System.out.println("==========================================");
                 System.out.println("〉" + Constants.MSG.unKnownMenuNumType + "〈");
                 System.out.println("==========================================");
@@ -199,7 +198,7 @@ public class MenuService {
     }
 
     public void systemExit() {
-        System.out.println("您已经成功退出系统...");
+        System.out.println(Constants.MSG.exitSystemSuccessed);
         System.exit(0);
     }
 

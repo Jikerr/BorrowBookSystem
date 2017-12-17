@@ -82,12 +82,12 @@ public class BorrowLogService {
         }
         System.out.println("===================================================================================");
         System.out.println(Constants.MSG.selectCommandTip + " 【B】退回上一级\t【0】 退出系统");
-        String  input = functionController.onInput();
+        String input = functionController.onInput(false);
         while (true) {
             if (StringUtils.isEmpty(input) || input.length() > 1 ||
                     (!Constants.OPERATIONCODE.back.equals(input) && !Constants.OPERATIONCODE.exit.equals(input))) {
                 System.out.println(Constants.MSG.inputError);
-                input = functionController.onInput();
+                input = functionController.onInput(false);
             }else{
                 break;
             }

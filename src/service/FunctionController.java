@@ -24,22 +24,39 @@ public class FunctionController {
         return null;
     }*/
 
-    public void handlerAction(Integer fId){
+    public void handlerAction(Integer fId) {
         MenuService menuService = new MenuService();
 
-        switch (fId){
-            case Constants.FUNCTION.SHOW_ALLBOOKLIST:{
+        switch (fId) {
+            case Constants.FUNCTION.SHOW_ALLBOOKLIST: {
                 BookService bookService = new BookService();
                 bookService.showBooksList();
                 bookService.booksListWorrowbook(true);
                 break;
             }
-            case Constants.FUNCTION.SHOW_BORROWLOGS:{
+            case Constants.FUNCTION.REGISTER_CUSTOMER: {
+                UserService userService = new UserService();
+                userService.register();
+                break;
+            }
+
+            case Constants.FUNCTION.LOGIN_CUSTOMER: {
+                UserService userService = new UserService();
+                userService.login();
+                break;
+            }
+
+            case Constants.FUNCTION.SHOW_BORROWLOGS: {
                 BorrowLogService borrowLogService = new BorrowLogService();
                 borrowLogService.printAll();
                 break;
             }
-            default:{
+            case Constants.FUNCTION.MANAGE_USER: {
+                UserService userService = new UserService();
+                userService.printAll();
+                break;
+            }
+            default: {
                 System.out.println("==================================");
                 System.out.println("〉" + Constants.MSG.emptyUnit + "〈");
                 System.out.println("==================================");
@@ -53,12 +70,14 @@ public class FunctionController {
         waitingOperation = false;
     }*/
 
-    public String onInput(){
+    public String onInput(boolean noPrintTip) {
         /*waitingOperation = true;
         while(waitingOperation){*/
+        if(!noPrintTip){
             System.out.print(Constants.MSG.tipFunctionInput);//注意此处不换行
-            Scanner scanner = new Scanner(System.in);
-            return scanner.next();
+        }
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next();
             /*operationInput = input;*/
         /*}*/
     }

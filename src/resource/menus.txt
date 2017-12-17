@@ -10,5 +10,5 @@
 		1#全部借书记录#9#8#function
 		2#十天内#10#8#function
 		3#返回上一级#11#8#back
-	2#历史借书#12#7#function
+	2#用户管理#12#7#function
 	3#返回上一级#13#7#back

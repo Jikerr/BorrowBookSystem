@@ -73,7 +73,7 @@ public class BookService {
         if(promptCommand){//只有传入提示命令才打印这句话
             System.out.println(Constants.MSG.selectCommandTip + "  [J编号]借书\t[Z编号]赞一下这本书\t【B】退回上一级\t【0】 退出系统");
         }
-        String input = controller.onInput();
+        String input = controller.onInput(false);
         if (StringUtils.isEmpty(input)) {
             System.out.println(Constants.MSG.inputError);
             booksListWorrowbook(true);//重新调用借书方法
